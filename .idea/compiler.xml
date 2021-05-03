@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="FoodNyan.app" target="1.8" />
+      <module name="FoodNyan.data" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
