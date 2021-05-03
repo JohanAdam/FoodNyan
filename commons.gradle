@@ -1,7 +1,12 @@
-dependencies {
+apply plugin: 'kotlin-kapt'
 
-    implementation "org.koin:koin-core:$koin_version"
-    implementation "org.koin:koin-android:$koin_version"
+dependencies {
+    //Hilt.
+    implementation "com.google.dagger:hilt-android:$version_hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$version_hilt"
+    kapt "androidx.hilt:hilt-compiler:$version_hilt_compiler"
+
+    implementation("io.reactivex.rxjava3:rxkotlin:$version_rxjava3")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
