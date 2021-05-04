@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
@@ -16,6 +15,10 @@ android {
         versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     buildTypes {
@@ -34,15 +37,20 @@ android {
 }
 
 dependencies {
-    implementation project(":data")
-
+    api project(":data")
     implementation project(":domain")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:$ktx_core_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
     implementation "com.google.android.material:material:$android_material"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+
+    //Core with KTX.
+    implementation "androidx.core:core-ktx:$ktx_core_version"
+    implementation "androidx.fragment:fragment-ktx:$ktx_fragment_version"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
 
     //Hilt.
     implementation "com.google.dagger:hilt-android:$version_hilt"

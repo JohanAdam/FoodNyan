@@ -43,9 +43,9 @@ dependencies {
 
 
     //Retrofit.
-    implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$version_retrofit"
+    api "com.squareup.retrofit2:retrofit: $version_retrofit"
+    api "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+    api "com.squareup.retrofit2:converter-gson:$version_retrofit"
 
     //Logging Interceptor.
     implementation "com.squareup.okhttp3:logging-interceptor:$version_okhttp_logging"
