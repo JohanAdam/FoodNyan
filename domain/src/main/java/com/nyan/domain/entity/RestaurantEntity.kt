@@ -9,5 +9,5 @@ data class RestaurantEntity(
     var lat: Double,
     var lng: Double,
     var desciption: String,
-    var comments: ArrayList<CommentEntity>
+    var comments: List<CommentEntity>
 )

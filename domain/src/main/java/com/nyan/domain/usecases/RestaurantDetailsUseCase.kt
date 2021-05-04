@@ -10,12 +10,4 @@ class RestaurantDetailsUseCase @Inject constructor(val repo: RemoteRepository) :
         TODO("Not yet implemented")
     }
 
-//    fun execute(restaurantId: String): Single<RestaurantEntity> {
-//        return repository.loadRestaurantDetails(restaurantId)
-//    }
-//
-//    override fun execute(): Single<RestaurantEntity> {
-//        repo.loadRestaurantDetails()
-//    }
-
 }
