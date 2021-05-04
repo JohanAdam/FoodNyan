@@ -4,9 +4,8 @@ import com.nyan.data.model.CommentDataModel
 import com.nyan.data.model.RestaurantDataModel
 import com.nyan.domain.entity.CommentEntity
 import com.nyan.domain.entity.RestaurantEntity
-import javax.inject.Inject
 
-class RestaurantMapper @Inject constructor() {
+class RestaurantMapper() {
 
     private fun mapResturantToEntity(restaurantDataModel: RestaurantDataModel) : RestaurantEntity {
         return RestaurantEntity(

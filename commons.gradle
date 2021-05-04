@@ -2,9 +2,7 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     //Hilt.
-    implementation "com.google.dagger:hilt-android:$version_hilt"
-    kapt "com.google.dagger:hilt-android-compiler:$version_hilt"
-    kapt "androidx.hilt:hilt-compiler:$version_hilt_compiler"
+    implementation "org.koin:koin-core:$koin_version"
 
     implementation("io.reactivex.rxjava3:rxkotlin:$version_rxjava3")
 

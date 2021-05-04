@@ -3,16 +3,13 @@ package com.nyan.foodie
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.nyan.foodie.databinding.ActivityMainBinding
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: ActivityMainBinding
 

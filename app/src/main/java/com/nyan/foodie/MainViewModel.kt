@@ -1,16 +1,13 @@
 package com.nyan.foodie
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.nyan.domain.repository.RemoteRepository
+import com.nyan.domain.usecases.ListRestaurantsUseCase
 
-class MainViewModel
-
-@ViewModelInject
-constructor(@Assisted val handle: SavedStateHandle): ViewModel() {
+class MainViewModel(private val restaurantsUseCase: ListRestaurantsUseCase): ViewModel() {
 
     private val _testValue: MutableLiveData<Int> = MutableLiveData()
     val testValue: LiveData<Int> get() = _testValue
