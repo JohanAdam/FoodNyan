@@ -9,7 +9,7 @@ import com.nyan.domain.state.DataState
 import com.nyan.domain.entity.restaurant.RestaurantEntity
 import com.nyan.domain.entity.test.TestStatusEntity
 import com.nyan.domain.repository.RemoteRepository
-import com.nyan.domain.network.NetworkError
+import com.nyan.domain.network.ErrorHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
@@ -26,7 +26,7 @@ class RemoteRepositoryImpl(
             processTestStatus(networkService.getTestTrue())
         } catch (e: HttpException) {
             e.printStackTrace()
-            emit(DataState.Failed(NetworkError(e)))
+            emit(DataState.Failed(ErrorHandler(e)))
         }
     }
 
@@ -35,7 +35,7 @@ class RemoteRepositoryImpl(
             processTestStatus(networkService.getTestFalse())
         } catch (e: HttpException) {
             e.printStackTrace()
-            emit(DataState.Failed(NetworkError(e)))
+            emit(DataState.Failed(ErrorHandler(e)))
         }
     }
 
@@ -44,7 +44,7 @@ class RemoteRepositoryImpl(
             processTestStatus(networkService.getTestBR())
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(DataState.Failed(NetworkError(e)))
+            emit(DataState.Failed(ErrorHandler(e)))
         }
     }
 
@@ -78,7 +78,7 @@ class RemoteRepositoryImpl(
         } catch (e: HttpException) {
             e.printStackTrace()
             //Return error.
-            emit(DataState.Failed(NetworkError(e)))
+            emit(DataState.Failed(ErrorHandler(e)))
         }
 
     }

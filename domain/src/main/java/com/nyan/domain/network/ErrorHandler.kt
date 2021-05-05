@@ -8,7 +8,7 @@ import java.net.UnknownHostException
 /**
  * Handles error during api calls.
  */
-class NetworkError(e: Exception) : Exception(e) {
+class ErrorHandler(e: Exception) : Exception(e) {
 
     companion object {
         const val DEFAULT_ERROR_MESSAGE: String = "An Error has occurred. Please try again later."
