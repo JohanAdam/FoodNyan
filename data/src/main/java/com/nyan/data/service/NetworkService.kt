@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface NetworkService {
 
     @GET("restaurant_dummy/5f554a9aaf64a72620742581350d40c7f100ac35/db.json")
-    fun getRestaurantList(): Flow<List<RestaurantDataModel>>
+    suspend fun getRestaurantList(): List<RestaurantDataModel>
 
 }

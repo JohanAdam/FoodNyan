@@ -4,7 +4,8 @@ dependencies {
     //Hilt.
     implementation "org.koin:koin-core:$koin_version"
 
-    implementation("io.reactivex.rxjava3:rxkotlin:$version_rxjava3")
+    //Logging library.
+    implementation "com.jakewharton.timber:timber:$version_timber"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
