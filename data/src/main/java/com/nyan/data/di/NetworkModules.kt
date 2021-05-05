@@ -3,13 +3,12 @@ package com.nyan.data.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.nyan.data.service.NetworkService
+import com.nyan.data.service.NetworkService.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.sin
 
 object NetworkModules {
 
@@ -26,7 +25,7 @@ object NetworkModules {
         .create()
 
     fun providesRetrofit(client: OkHttpClient, gson: Gson) = Retrofit.Builder()
-        .baseUrl("https://raw.githubusercontent.com/JohanAdam/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .client(client)
         .build()

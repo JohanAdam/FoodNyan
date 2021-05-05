@@ -9,7 +9,7 @@ object PresentationModule {
 
     val presentationModule = module {
         viewModel {
-            MainViewModel(get())
+            MainViewModel(get(), get())
         }
     }
 

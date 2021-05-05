@@ -1,11 +1,17 @@
 package com.nyan.domain.repository
 
-import com.nyan.domain.entity.RestaurantEntity
+import com.nyan.domain.entity.restaurant.RestaurantEntity
+import com.nyan.domain.entity.test.TestStatusEntity
 import com.nyan.domain.state.DataState
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteRepository {
+
+    fun loadTestTrue(): Flow<DataState<TestStatusEntity>>
+
+    fun loadTestFalse(): Flow<DataState<TestStatusEntity>>
+
+    fun loadTestBR(): Flow<DataState<TestStatusEntity>>
 
     fun loadRestaurants(): Flow<DataState<List<RestaurantEntity>>>
 

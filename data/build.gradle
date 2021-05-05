@@ -44,7 +44,6 @@ dependencies {
 
     //Retrofit.
     api "com.squareup.retrofit2:retrofit: $version_retrofit"
-    api "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     api "com.squareup.retrofit2:converter-gson:$version_retrofit"
 
     //Logging Interceptor.

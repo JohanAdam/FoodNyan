@@ -1,4 +1,4 @@
-package com.nyan.domain.entity
+package com.nyan.domain.entity.restaurant
 
 data class RestaurantEntity(
     var id: Int,

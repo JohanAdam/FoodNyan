@@ -1,27 +1,33 @@
 package com.nyan.foodie
 
 import androidx.lifecycle.*
-import com.nyan.domain.entity.RestaurantEntity
-import com.nyan.domain.repository.RemoteRepository
+import com.nyan.domain.entity.restaurant.RestaurantEntity
+import com.nyan.domain.entity.test.TestStatusEntity
 import com.nyan.domain.state.DataState
-import com.nyan.domain.usecases.ListRestaurantsUseCase
+import com.nyan.domain.usecases.restaurant.ListRestaurantsUseCase
+import com.nyan.domain.usecases.test.GetTestTrueUseCase
+import com.nyan.domain.usecases.test.PostTestBRUseCase
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.subscribe
-import kotlinx.coroutines.flow.subscribeOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 sealed class MainStateEvent {
     object GetRestaurantsEvent: MainStateEvent()
+    object GetTestTrueEvent: MainStateEvent()
 }
 
 class MainViewModel(
-    private val listRestaurantUseCase: ListRestaurantsUseCase): ViewModel() {
+    private val listRestaurantUseCase: ListRestaurantsUseCase,
+    private val getTestTrueUseCase: PostTestBRUseCase
+): ViewModel() {
 
-    private val _dataState: MutableLiveData<DataState<List<RestaurantEntity>>> = MutableLiveData()
-    val dataState: LiveData<DataState<List<RestaurantEntity>>> get() = _dataState
+    private val _restaurantDataState: MutableLiveData<DataState<List<RestaurantEntity>>> = MutableLiveData()
+    val restaurantDataState: LiveData<DataState<List<RestaurantEntity>>> get() = _restaurantDataState
+
+    private val _testTrueDataState: MutableLiveData<DataState<TestStatusEntity>> = MutableLiveData()
+    val testTrueDataState: LiveData<DataState<TestStatusEntity>> get() = _testTrueDataState
 
     init {
         getRestaurantList()
@@ -43,7 +49,15 @@ class MainViewModel(
                     Timber.d("setStateEvent: GetRestaurantEvent")
                     listRestaurantUseCase.execute()
                         .onEach { dataState ->
-                            _dataState.value = dataState
+                            _restaurantDataState.value = dataState
+                        }
+                        .launchIn(viewModelScope)
+                }
+                is MainStateEvent.GetTestTrueEvent -> {
+                    Timber.e("setStateEvent: GetTestTrueEvent")
+                    getTestTrueUseCase.execute()
+                        .onEach { dataState ->
+                            _testTrueDataState.value = dataState
                         }
                         .launchIn(viewModelScope)
                 }

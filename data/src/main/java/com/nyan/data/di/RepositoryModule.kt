@@ -9,7 +9,7 @@ object RepositoryModule {
 
     val repositoryModule = module {
         single<RemoteRepository> {
-            RemoteRepositoryImpl(get(), get())
+            RemoteRepositoryImpl(get(), get(), get())
         }
     }
 

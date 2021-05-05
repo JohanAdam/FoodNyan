@@ -1,4 +1,4 @@
-package com.nyan.data.model
+package com.nyan.data.model.restaurant
 
 import com.google.gson.annotations.SerializedName
 
