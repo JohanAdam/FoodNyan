@@ -1,11 +1,10 @@
-package com.nyan.foodie
+package com.nyan.foodie.viewmodel.main
 
 import androidx.lifecycle.*
 import com.nyan.domain.entity.restaurant.RestaurantEntity
 import com.nyan.domain.entity.test.TestStatusEntity
 import com.nyan.domain.state.DataState
 import com.nyan.domain.usecases.restaurant.ListRestaurantsUseCase
-import com.nyan.domain.usecases.test.GetTestTrueUseCase
 import com.nyan.domain.usecases.test.PostTestBRUseCase
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +34,7 @@ class MainViewModel(
 
     private fun getRestaurantList(){
         Timber.d("getRestaurantList: ")
-        setStateEvent(MainStateEvent.GetRestaurantsEvent)
+        setStateEvent(MainStateEvent.GetTestTrueEvent)
     }
 
     /**
