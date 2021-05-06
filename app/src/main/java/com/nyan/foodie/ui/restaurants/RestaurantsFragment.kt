@@ -19,10 +19,6 @@ class RestaurantsFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentRestaurantsBinding.inflate(inflater)
 
-        binding.btnHappy.setOnClickListener {
-            viewModel.poop("POOP")
-        }
-
         viewModel.testNyan.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail())

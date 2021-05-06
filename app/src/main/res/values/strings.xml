@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FoodNyan</string>
+    <string name="title_restaurants">Restaurants</string>
+    <string name="title_filter">Filter</string>
 </resources>

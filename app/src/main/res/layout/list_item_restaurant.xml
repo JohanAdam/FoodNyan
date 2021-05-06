@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:cardCornerRadius="4dp"
+        tools:layout_marginVertical="3dp"
+        tools:layout_marginHorizontal="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:foreground="@drawable/fg_dimmer"
+                tools:background="@tools:sample/backgrounds/scenic"/>
+
+            <TextView
+                style="@style/AppTextStyle"
+                android:id="@+id/tv_title_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/iv_arrow"
+                android:layout_marginHorizontal="20dp"
+                tools:text="Nyan's Kitchen"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="20dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/iv_chevron_right"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
