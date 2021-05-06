@@ -13,7 +13,7 @@ object PresentationModule {
             MainViewModel(get(), get())
         }
         viewModel {
-            RestaurantsViewModel()
+            RestaurantsViewModel(get())
         }
         viewModel {
             DetailsViewModel()

@@ -2,6 +2,7 @@ package com.nyan.foodie.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.material.snackbar.Snackbar
 import com.nyan.domain.state.DataState
 import com.nyan.foodie.databinding.ActivityMainBinding
 import com.nyan.foodie.viewmodel.main.MainViewModel
@@ -56,7 +57,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun displayProgressBar(isShowing: Boolean) {
-//        binding.pB.visibility = if (isShowing) View.VISIBLE else View.GONE
+    private fun displayProgressBar(b: Boolean) {
+
     }
+
+    fun showSnackbar(msg: String) {
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
+    }
+
 }

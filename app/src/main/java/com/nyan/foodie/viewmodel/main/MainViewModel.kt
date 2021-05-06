@@ -29,7 +29,7 @@ class MainViewModel(
     val testTrueDataState: LiveData<DataState<TestStatusEntity>> get() = _testTrueDataState
 
     init {
-        getRestaurantList()
+//        getRestaurantList()
     }
 
     private fun getRestaurantList(){

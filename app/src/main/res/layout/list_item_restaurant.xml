@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_root"
+    <data>
+        <variable
+            name="data"
+            type="com.nyan.domain.entity.restaurant.RestaurantEntity" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        app:cardCornerRadius="4dp"
-        tools:layout_marginVertical="3dp"
-        tools:layout_marginHorizontal="0dp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_root"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="140dp"
+            android:layout_marginBottom="6dp"
+            app:cardCornerRadius="4dp"
+            tools:layout_marginVertical="3dp"
+            tools:layout_marginHorizontal="0dp">
 
-            <ImageView
-                android:id="@+id/iv_background"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:foreground="@drawable/fg_dimmer"
-                tools:background="@tools:sample/backgrounds/scenic"/>
+                android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/AppTextStyle"
-                android:id="@+id/tv_title_restaurant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/iv_arrow"
-                android:layout_marginHorizontal="20dp"
-                tools:text="Nyan's Kitchen"
-                android:textSize="20sp"
-                android:textColor="@color/white"/>
+                <ImageView
+                    android:id="@+id/iv_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:foreground="@drawable/fg_dimmer"
+                    tools:background="@tools:sample/backgrounds/scenic" />
 
-            <ImageView
-                android:id="@+id/iv_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="20dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/iv_chevron_right"/>
+                <TextView
+                    style="@style/AppTextStyle"
+                    android:id="@+id/tv_title_restaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/iv_arrow"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="@{data.title}"
+                    tools:text="Nyan's Kitchen"
+                    android:textSize="20sp"
+                    android:textColor="@color/white" />
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/iv_chevron_right" />
 
-    </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
 
-</LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</layout>
