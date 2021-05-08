@@ -20,7 +20,11 @@
             android:layout_marginBottom="6dp"
             app:cardCornerRadius="4dp"
             tools:layout_marginVertical="3dp"
-            tools:layout_marginHorizontal="0dp">
+            tools:layout_marginHorizontal="0dp"
+            app:cardBackgroundColor="@color/grey_0"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,6 +38,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
+                    imageUrl="@{data.coverPicture}"
                     android:foreground="@drawable/fg_dimmer"
                     tools:background="@tools:sample/backgrounds/scenic" />
 

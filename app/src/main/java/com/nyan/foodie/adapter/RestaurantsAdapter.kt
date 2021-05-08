@@ -27,19 +27,19 @@ class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<
     override fun onBindViewHolder(holder: RestaurantsViewHolder, position: Int) {
         val anime = getItem(position)
         //Bind the data to xml.
-        holder.bind(anime)
-
-        //Set on click listener and data to sent.
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(anime)
-        }
+        holder.bind(anime, onClickListener)
     }
 
     class RestaurantsViewHolder(private var binding: ListItemRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(restaurant: RestaurantEntity) {
+        fun bind(restaurant: RestaurantEntity, onClickListener: OnItemClickListener) {
             binding.data = restaurant
             binding.executePendingBindings()
+
+            //Set on click listener and data to sent.
+            binding.cardRoot.setOnClickListener {
+                onClickListener.onClick(restaurant)
+            }
         }
     }
 

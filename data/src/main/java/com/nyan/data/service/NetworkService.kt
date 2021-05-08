@@ -11,7 +11,7 @@ interface NetworkService {
 
     companion object {
         const val BASE_URL : String = "http://apitest.thelorry.com/"
-        const val RESTAURANT_BASE_URL : String = "https://raw.githubusercontent.com/JohanAdam/restaurant_dummy/5f554a9aaf64a72620742581350d40c7f100ac35/db.json"
+        const val RESTAURANT_BASE_URL : String = "https://raw.githubusercontent.com/JohanAdam/restaurant_dummy/master/db.json"
     }
 
     @GET("/test/true")

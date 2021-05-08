@@ -32,7 +32,7 @@ class RestaurantsFragment: Fragment() {
         val view = binding.root
 
         setupObserver()
-        setupViewListener()
+        setupView()
 
         return view
     }
@@ -57,7 +57,7 @@ class RestaurantsFragment: Fragment() {
         })
     }
 
-    private fun setupViewListener() {
+    private fun setupView() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getRestaurants()
         }

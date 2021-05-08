@@ -20,5 +20,7 @@ data class RestaurantDataModel(
     @SerializedName("desciption")
     var restaurantDesciption: String = "",
     @SerializedName("comments")
-    var restaurantComments: ArrayList<CommentDataModel>? = null
+    var restaurantComments: ArrayList<CommentDataModel>? = null,
+    @SerializedName("cover_picture")
+    var coverPicture: String?
 )

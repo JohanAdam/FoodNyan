@@ -19,7 +19,8 @@ class RestaurantMapper() {
             desciption = restaurantDataModel.restaurantDesciption,
             comments = restaurantDataModel.restaurantComments!!.map {
                 mapCommentToEntity(it)
-            }
+            },
+            coverPicture = restaurantDataModel.coverPicture
         )
     }
 

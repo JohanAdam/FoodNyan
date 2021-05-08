@@ -9,5 +9,6 @@ data class RestaurantEntity(
     var lat: Double,
     var lng: Double,
     var desciption: String,
-    var comments: List<CommentEntity>
+    var comments: List<CommentEntity>,
+    var coverPicture: String?
 )
