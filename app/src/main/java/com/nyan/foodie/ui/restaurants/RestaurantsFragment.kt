@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nyan.domain.entity.restaurant.RestaurantEntity
 import com.nyan.domain.state.DataState
@@ -55,6 +56,12 @@ class RestaurantsFragment: Fragment() {
                     displayProgressBar(false)
             }
         })
+
+        viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
+                this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail())
+            }
+        })
     }
 
     private fun setupView() {
@@ -64,7 +71,7 @@ class RestaurantsFragment: Fragment() {
 
         binding.rvRestaurantList.layoutManager = LinearLayoutManager(context)
         adapter = RestaurantsAdapter(OnItemClickListener {
-            showSnackBar(it.title)
+            viewModel.openRestaurantDetail(it)
         })
     }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.nyan.domain.entity.restaurant.RestaurantEntity
 import com.nyan.domain.state.DataState
 import com.nyan.domain.usecases.restaurant.ListRestaurantsUseCase
+import com.nyan.foodie.event.Event
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
@@ -21,6 +22,9 @@ sealed class RestaurantsStateEvent {
 @ExperimentalCoroutinesApi
 class RestaurantsViewModel(
     private val listRestaurantsUseCase: ListRestaurantsUseCase): ViewModel() {
+
+    private val _navigateToRestaurantDetails: MutableLiveData<Event<RestaurantEntity>> = MutableLiveData()
+    val navigateToRestaurantDetails: LiveData<Event<RestaurantEntity>> get() = _navigateToRestaurantDetails
 
     private val _listRestaurant: MutableLiveData<DataState<List<RestaurantEntity>>> = MutableLiveData()
     val listRestaurant: LiveData<DataState<List<RestaurantEntity>>> get() = _listRestaurant
@@ -48,6 +52,10 @@ class RestaurantsViewModel(
                 }
             }
         }
+    }
+
+    fun openRestaurantDetail(item: RestaurantEntity) {
+        _navigateToRestaurantDetails.postValue(Event(item))
     }
 
     override fun onCleared() {
