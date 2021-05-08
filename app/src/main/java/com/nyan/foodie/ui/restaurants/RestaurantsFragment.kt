@@ -12,6 +12,7 @@ import com.nyan.domain.state.DataState
 import com.nyan.foodie.adapter.OnItemClickListener
 import com.nyan.foodie.adapter.RestaurantsAdapter
 import com.nyan.foodie.databinding.FragmentRestaurantsBinding
+import com.nyan.foodie.event.EventObserver
 import com.nyan.foodie.ui.main.MainActivity
 import com.nyan.foodie.viewmodel.restaurants.RestaurantsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,10 +58,8 @@ class RestaurantsFragment: Fragment() {
             }
         })
 
-        viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, {
-            it.getContentIfNotHandled()?.let {
-                this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail())
-            }
+        viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, EventObserver {
+            this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail())
         })
     }
 
