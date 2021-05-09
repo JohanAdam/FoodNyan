@@ -8,8 +8,12 @@ import com.nyan.domain.state.DataState
 import com.nyan.foodie.R
 import com.nyan.foodie.databinding.ActivityMainBinding
 import com.nyan.foodie.dialog.DialogLoading
+import com.nyan.foodie.router.AppRouter
+import com.nyan.foodie.router.Router
 import com.nyan.foodie.viewmodel.main.MainViewModel
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private var dialogLoading: DialogLoading? = null
+
+    val router: Router by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,4 +83,15 @@ class MainActivity : AppCompatActivity() {
         Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return router.navigationUp()
+    }
+
+    override fun onBackPressed() {
+        if (router.isInRootScreen()) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

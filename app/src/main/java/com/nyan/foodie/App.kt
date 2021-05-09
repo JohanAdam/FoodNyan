@@ -12,6 +12,7 @@ import com.nyan.data.di.RepositoryModule
 import com.nyan.data.di.RepositoryModule.repositoryModule
 import com.nyan.domain.di.DomainModules
 import com.nyan.domain.di.DomainModules.domainModule
+import com.nyan.foodie.di.AppModule
 import com.nyan.foodie.di.PresentationModule
 import com.nyan.foodie.di.PresentationModule.presentationModule
 import org.koin.android.ext.koin.androidContext
@@ -37,6 +38,8 @@ class App: Application() {
             androidContext(this@App)
             modules(listOf(dataModule, networkModule, repositoryModule, domainModule, presentationModule))
         }
+
+        AppModule.load()
     }
 
     private class ReleaseTree : Timber.Tree() {

@@ -23,9 +23,6 @@ sealed class RestaurantsStateEvent {
 class RestaurantsViewModel(
     private val listRestaurantsUseCase: ListRestaurantsUseCase): ViewModel() {
 
-    private val _navigateToRestaurantDetails: MutableLiveData<Event<RestaurantBinding>> = MutableLiveData()
-    val navigateToRestaurantDetails: LiveData<Event<RestaurantBinding>> get() = _navigateToRestaurantDetails
-
     private val _isLoading: MutableLiveData<Event<Boolean>> = MutableLiveData()
     val isLoading: LiveData<Event<Boolean>> get() = _isLoading
 
@@ -81,10 +78,6 @@ class RestaurantsViewModel(
                 }
             }
         }
-    }
-
-    fun openRestaurantDetail(item: RestaurantBinding) {
-        _navigateToRestaurantDetails.value = (Event(item))
     }
 
     fun selectFilter() {

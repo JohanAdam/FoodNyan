@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nyan.foodie.adapter.RestaurantsAdapter
 import com.nyan.foodie.adapter.TagsAdapter
+import com.nyan.foodie.base.BaseFragment
 import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.FragmentRestaurantsBinding
 import com.nyan.foodie.event.EventObserver
@@ -18,7 +19,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
-class RestaurantsFragment: Fragment() {
+class RestaurantsFragment: BaseFragment() {
 
     private var _binding: FragmentRestaurantsBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +28,7 @@ class RestaurantsFragment: Fragment() {
 
     private val restaurantAdapter by lazy {
         RestaurantsAdapter { restaurant ->
-            viewModel.openRestaurantDetail(restaurant)
+            router.showDetails(restaurant)
         }
     }
 
@@ -62,10 +63,6 @@ class RestaurantsFragment: Fragment() {
 
         viewModel.listTag.observe(viewLifecycleOwner, {
             displayTags(it)
-        })
-
-        viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, EventObserver {
-            this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail(it))
         })
     }
 
