@@ -2,11 +2,13 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     //Hilt.
-    implementation "com.google.dagger:hilt-android:$version_hilt"
-    kapt "com.google.dagger:hilt-android-compiler:$version_hilt"
-    kapt "androidx.hilt:hilt-compiler:$version_hilt_compiler"
+    implementation "org.koin:koin-core:$koin_version"
 
-    implementation("io.reactivex.rxjava3:rxkotlin:$version_rxjava3")
+    //Retrofit.
+    implementation "com.squareup.retrofit2:converter-gson:$version_retrofit"
+
+    //Logging library.
+    implementation "com.jakewharton.timber:timber:$version_timber"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingStart="0dp"
+    android:paddingEnd="4dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:strokeColor="@color/red_citrus"
+        app:strokeWidth="1dp">
+
+        <TextView
+            style="@style/AppTextStyle"
+            android:id="@+id/tv_filter_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="28dp"
+            android:gravity="center"
+            tools:text="Nyan"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/red_citrus"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

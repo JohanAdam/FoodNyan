@@ -1,10 +1,59 @@
 package com.nyan.foodie
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import android.app.Presentation
+import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
+import com.nyan.data.di.DataModules
+import com.nyan.data.di.DataModules.dataModule
+import com.nyan.data.di.NetworkModules
+import com.nyan.data.di.NetworkModules.networkModule
+import com.nyan.data.di.RepositoryModule
+import com.nyan.data.di.RepositoryModule.repositoryModule
+import com.nyan.domain.di.DomainModules
+import com.nyan.domain.di.DomainModules.domainModule
+import com.nyan.foodie.di.PresentationModule
+import com.nyan.foodie.di.PresentationModule.presentationModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import timber.log.Timber
 
-//TODO Update hilt to 2.35, but having issue with Non-android module(Domain module).
-//TODO There also a problem where Hilt can't handle multi-module project. It having a problem with leaking classes into other Gradle modules.
+class App: Application() {
 
-@HiltAndroidApp
-class App: Application()
+    override fun onCreate() {
+        super.onCreate()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        //Initialized timber.
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(ReleaseTree())
+        }
+
+        startKoin {
+            androidContext(this@App)
+            modules(listOf(dataModule, networkModule, repositoryModule, domainModule, presentationModule))
+        }
+    }
+
+    private class ReleaseTree : Timber.Tree() {
+        override fun log(
+            priority: Int, tag: String?, message: String,
+            t: Throwable?
+        ) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return
+            }
+
+            // log your crash to your favourite
+            // Sending crash report to Firebase CrashAnalytics
+
+            // FirebaseCrash.report(message);
+            // FirebaseCrash.report(new Exception(message));
+        }
+    }
+
+}

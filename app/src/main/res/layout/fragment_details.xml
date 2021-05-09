@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.nyan.foodie.binding.model.restaurant.Restaurant" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_header"
+                layout="@layout/layout_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/default_horizontal_padding"
+                android:paddingVertical="@dimen/default_vertical_padding"
+                app:layout_constraintBottom_toTopOf="@id/layout_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_header">
+
+                <TextView
+                    android:id="@+id/tv_restaurant_title"
+                    style="@style/AppTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0"
+                    android:text="@{data.title}"
+                    tools:text="The Title"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_pictures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_restaurant_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:requiresFadingEdge="horizontal"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_picture"
+                    tools:orientation="horizontal" />
+
+                <LinearLayout
+                    android:id="@+id/layout_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_pictures"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        style="@style/AppSubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="@string/title_rating" />
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:id="@+id/ratingBar"
+                        android:theme="@style/RatingBarTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="4dp"
+                        tools:rating="4"
+                        setRatingFromDouble="@{data.rating}"/>
+
+                    <TextView
+                        style="@style/AppSubTitleStyle"
+                        android:id="@+id/tv_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="4.0/5"
+                        android:text='@{String.format("%.1f", data.rating)}'
+                        android:textColor="@color/yellow" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/layout_rating"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/AppSubsStyle"
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        app:lineHeight="20dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@{data.address}"
+                        tools:text="Jalan Kegembiraan, Bwah Jambatan, Kucing 40, 68000 Ampang, Selangor." />
+
+                    <ImageView
+                        android:id="@+id/btn_copy"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_action_copy"
+                        android:background="@drawable/bg_card_red"
+                        app:tint="@color/white"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:elevation="4dp" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_navigate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/layout_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    app:cornerRadius="6dp"
+                    app:icon="@drawable/ic_location_marker"
+                    android:paddingVertical="12dp"
+                    app:iconPadding="20dp"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/white"
+                    android:textColor="@color/white"
+                    android:text="@string/title_navigate_with_google_map"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/gothambold"
+                    android:letterSpacing="0.01"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/tv_title_description"
+                    style="@style/AppSubTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_navigate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/title_description"/>
+
+                <TextView
+                    style="@style/AppSubsStyle"
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@{data.desciption}"
+                    tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \nDonec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. "
+                    app:lineHeight="20dp"
+                    android:textAlignment="textStart" />
+
+
+                <TextView
+                    style="@style/AppSubTitleStyle"
+                    android:id="@+id/tv_title_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@{@string/title_comment(data.comments.size)}"
+                    tools:text="@string/title_comment"
+                    app:lineHeight="20dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvComments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_comment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="12dp"
+                    tools:listitem="@layout/list_item_comment"
+                    android:clipToPadding="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/bg_shadow_drop"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="@dimen/default_horizontal_padding"
+                android:clipToPadding="false"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_camera"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:hint="@string/title_write_a_comment"
+                    android:background="@drawable/bg_edit_text"/>
+
+                <ImageView
+                    android:id="@+id/btn_send_comment"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_arrow_send"
+                    android:background="@drawable/bg_card_red"
+                    app:tint="@color/white"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:elevation="2dp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

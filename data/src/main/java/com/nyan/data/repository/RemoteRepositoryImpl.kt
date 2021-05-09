@@ -1,26 +1,96 @@
 package com.nyan.data.repository
 
 import com.nyan.data.mapper.RestaurantMapper
+import com.nyan.data.mapper.TestStatusMapper
+import com.nyan.data.model.test.TestStatusDataModel
 import com.nyan.data.service.NetworkService
-import com.nyan.domain.entity.RestaurantEntity
+import com.nyan.data.service.NetworkService.Companion.RESTAURANT_BASE_URL
+import com.nyan.domain.state.DataState
+import com.nyan.domain.entity.restaurant.RestaurantEntity
+import com.nyan.domain.entity.test.TestStatusEntity
 import com.nyan.domain.repository.RemoteRepository
-import dagger.Lazy
-import io.reactivex.rxjava3.core.Single
+import com.nyan.domain.network.ErrorHandler
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import timber.log.Timber
+import java.lang.Exception
 
-class RemoteRepositoryImpl @Inject constructor(
+class RemoteRepositoryImpl(
     private val networkService: NetworkService,
-    private val mapper: Lazy<RestaurantMapper>) : RemoteRepository {
+    private val restaurantMapper: RestaurantMapper,
+    private val testStatusMapper: TestStatusMapper) : RemoteRepository {
 
-    override fun loadRestaurants(): Flow<List<RestaurantEntity>> {
-        return networkService.getRestaurantList().map {
-            mapper.get().mapDataToEntityList(it)
+    override fun loadTestTrue(): Flow<DataState<TestStatusEntity>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
+        try {
+            processTestStatus(networkService.getTestTrue())
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            emit(DataState.Failed(ErrorHandler(e)))
         }
     }
 
-    override fun loadRestaurantDetails(restaurantId: String): Single<RestaurantEntity> {
+    override fun loadTestFalse(): Flow<DataState<TestStatusEntity>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
+        try {
+            processTestStatus(networkService.getTestFalse())
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            emit(DataState.Failed(ErrorHandler(e)))
+        }
+    }
+
+    override fun loadTestBR(): Flow<DataState<TestStatusEntity>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
+        try {
+            processTestStatus(networkService.getTestBR())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(DataState.Failed(ErrorHandler(e)))
+        }
+    }
+
+    private suspend fun FlowCollector<DataState<TestStatusEntity>>.processTestStatus(testApi: TestStatusDataModel) {
+        //Get data from API.
+        val testStatusNet = testApi
+
+        //Mapping network model to domain model.
+        val testStatus = testStatusMapper.mapToEntity(testStatusNet)
+
+        //Return result.
+        emit(DataState.Success(testStatus))
+    }
+
+    override fun loadRestaurants(): Flow<DataState<List<RestaurantEntity>>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
+        try {
+            //Get list from API.
+            val restaurantNetList = networkService.getRestaurantList(RESTAURANT_BASE_URL)
+
+            //Mapping network model to domain model.
+            val restaurantList = restaurantMapper.mapDataToEntityList(restaurantNetList)
+
+            //Return result.
+            emit(DataState.Success(restaurantList))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            //Return error.
+            emit(DataState.Failed(ErrorHandler(e)))
+        }
+
+    }
+
+    override fun loadRestaurantDetails(restaurantId: String): Flow<DataState<RestaurantEntity>> {
         TODO("Not yet implemented")
     }
 

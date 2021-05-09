@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_horizontal_padding">20dp</dimen>
+    <dimen name="default_vertical_padding">6dp</dimen>
+    <dimen name="padding_horizontal_header">12dp</dimen>
+</resources>

@@ -1,14 +1,13 @@
 package com.nyan.data.mapper
 
-import com.nyan.data.model.CommentDataModel
-import com.nyan.data.model.RestaurantDataModel
-import com.nyan.domain.entity.CommentEntity
-import com.nyan.domain.entity.RestaurantEntity
-import javax.inject.Inject
+import com.nyan.data.model.restaurant.CommentDataModel
+import com.nyan.data.model.restaurant.RestaurantDataModel
+import com.nyan.domain.entity.restaurant.CommentEntity
+import com.nyan.domain.entity.restaurant.RestaurantEntity
 
-class RestaurantMapper @Inject constructor() {
+class RestaurantMapper() {
 
-    private fun mapResturantToEntity(restaurantDataModel: RestaurantDataModel) : RestaurantEntity {
+    private fun mapRestaurantToEntity(restaurantDataModel: RestaurantDataModel) : RestaurantEntity {
         return RestaurantEntity(
             id = restaurantDataModel.id,
             title = restaurantDataModel.restaurantTitle,
@@ -20,11 +19,12 @@ class RestaurantMapper @Inject constructor() {
             desciption = restaurantDataModel.restaurantDesciption,
             comments = restaurantDataModel.restaurantComments!!.map {
                 mapCommentToEntity(it)
-            }
+            },
+            coverPicture = restaurantDataModel.coverPicture
         )
     }
 
-    private fun mapCommentToEntity(commentDataModel: CommentDataModel) : CommentEntity{
+    private fun mapCommentToEntity(commentDataModel: CommentDataModel) : CommentEntity {
         return CommentEntity(
             name = commentDataModel.userName,
             comment = commentDataModel.userComment,
@@ -34,7 +34,7 @@ class RestaurantMapper @Inject constructor() {
 
     fun mapDataToEntityList(listDataModel: List<RestaurantDataModel>) : List<RestaurantEntity> {
         return listDataModel.map {
-            mapResturantToEntity(it)
+            mapRestaurantToEntity(it)
         }
     }
 

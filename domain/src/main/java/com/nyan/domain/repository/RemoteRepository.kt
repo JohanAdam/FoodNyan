@@ -1,13 +1,20 @@
 package com.nyan.domain.repository
 
-import com.nyan.domain.entity.RestaurantEntity
-import io.reactivex.rxjava3.core.Single
+import com.nyan.domain.entity.restaurant.RestaurantEntity
+import com.nyan.domain.entity.test.TestStatusEntity
+import com.nyan.domain.state.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteRepository {
 
-    fun loadRestaurants(): Flow<List<RestaurantEntity>>
+    fun loadTestTrue(): Flow<DataState<TestStatusEntity>>
 
-    fun loadRestaurantDetails(restaurantId: String): Single<RestaurantEntity>
+    fun loadTestFalse(): Flow<DataState<TestStatusEntity>>
+
+    fun loadTestBR(): Flow<DataState<TestStatusEntity>>
+
+    fun loadRestaurants(): Flow<DataState<List<RestaurantEntity>>>
+
+    fun loadRestaurantDetails(restaurantId: String): Flow<DataState<RestaurantEntity>>
 
 }
