@@ -1,5 +1,6 @@
 package com.nyan.foodie.di
 
+import com.nyan.domain.entity.restaurant.RestaurantEntity
 import com.nyan.foodie.viewmodel.details.DetailsViewModel
 import com.nyan.foodie.viewmodel.main.MainViewModel
 import com.nyan.foodie.viewmodel.restaurants.RestaurantsViewModel
@@ -16,7 +17,7 @@ object PresentationModule {
             RestaurantsViewModel(get())
         }
         viewModel {
-            DetailsViewModel()
+            (data: RestaurantEntity) -> DetailsViewModel(data)
         }
     }
 

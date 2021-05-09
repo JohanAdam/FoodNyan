@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nyan.domain.entity.restaurant.RestaurantEntity
 import com.nyan.domain.state.DataState
 import com.nyan.domain.usecases.restaurant.ListRestaurantsUseCase
+import com.nyan.foodie.binding.model.restaurant.RestaurantConverter
+import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.event.Event
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
@@ -23,11 +24,17 @@ sealed class RestaurantsStateEvent {
 class RestaurantsViewModel(
     private val listRestaurantsUseCase: ListRestaurantsUseCase): ViewModel() {
 
-    private val _navigateToRestaurantDetails: MutableLiveData<Event<RestaurantEntity>> = MutableLiveData()
-    val navigateToRestaurantDetails: LiveData<Event<RestaurantEntity>> get() = _navigateToRestaurantDetails
+    private val _navigateToRestaurantDetails: MutableLiveData<Event<RestaurantBinding>> = MutableLiveData()
+    val navigateToRestaurantDetails: LiveData<Event<RestaurantBinding>> get() = _navigateToRestaurantDetails
 
-    private val _listRestaurant: MutableLiveData<DataState<List<RestaurantEntity>>> = MutableLiveData()
-    val listRestaurant: LiveData<DataState<List<RestaurantEntity>>> get() = _listRestaurant
+    private val _listRestaurant: MutableLiveData<List<RestaurantBinding>> = MutableLiveData()
+    val listRestaurant: LiveData<List<RestaurantBinding>> get() = _listRestaurant
+
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _errorMsg: MutableLiveData<String> = MutableLiveData()
+    val errorMsg: LiveData<String> get() = _errorMsg
 
     init {
         getRestaurants()
@@ -46,7 +53,20 @@ class RestaurantsViewModel(
                     Timber.d("setStateEvent: GetRestaurantEvent")
                     listRestaurantsUseCase.execute()
                         .onEach { dataState ->
-                            _listRestaurant.value = dataState
+
+                            when (dataState) {
+                                is DataState.Success -> {
+                                    _listRestaurant.value = RestaurantConverter.fromEntityToBinding(dataState.data)
+                                }
+                                is DataState.Failed -> {
+                                    _errorMsg.value = dataState.error.errorMsg
+                                }
+                                is DataState.Loading -> {
+                                    _isLoading.value = true
+                                }
+                                else -> _isLoading.value = false
+                            }
+
                         }
                         .launchIn(viewModelScope)
                 }
@@ -54,7 +74,7 @@ class RestaurantsViewModel(
         }
     }
 
-    fun openRestaurantDetail(item: RestaurantEntity) {
+    fun openRestaurantDetail(item: RestaurantBinding) {
         _navigateToRestaurantDetails.postValue(Event(item))
     }
 

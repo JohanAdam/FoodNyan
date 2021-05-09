@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nyan.domain.entity.restaurant.RestaurantEntity
-import com.nyan.domain.state.DataState
 import com.nyan.foodie.adapter.OnItemClickListener
 import com.nyan.foodie.adapter.RestaurantsAdapter
+import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.FragmentRestaurantsBinding
 import com.nyan.foodie.event.EventObserver
 import com.nyan.foodie.ui.main.MainActivity
@@ -40,22 +39,16 @@ class RestaurantsFragment: Fragment() {
     }
 
     private fun setupObserver() {
-        viewModel.listRestaurant.observe(viewLifecycleOwner, { dataState ->
-            when(dataState) {
-                is DataState.Loading -> {
-                    displayProgressBar(true)
-                }
-                is DataState.Success -> {
-                    displayProgressBar(false)
-                    displayData(dataState.data)
-                }
-                is DataState.Failed -> {
-                    displayProgressBar(false)
-                    showSnackBar(dataState.error.errorMsg)
-                }
-                else ->
-                    displayProgressBar(false)
-            }
+        viewModel.listRestaurant.observe(viewLifecycleOwner, {
+            displayData(it)
+        })
+
+        viewModel.errorMsg.observe(viewLifecycleOwner, {
+            showSnackBar(it)
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            displayProgressBar(it)
         })
 
         viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, EventObserver {
@@ -87,7 +80,7 @@ class RestaurantsFragment: Fragment() {
         (activity as MainActivity).showSnackbar(errorMsg)
     }
 
-    private fun displayData(data: List<RestaurantEntity>) {
+    private fun displayData(data: List<RestaurantBinding>) {
         Timber.e("displayData: ${data.size}")
         binding.rvRestaurantList.adapter = adapter
         adapter.submitList(data)

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.nyan.domain.entity.restaurant.RestaurantEntity" />
+            type="com.nyan.foodie.binding.model.restaurant.Restaurant" />
     </data>
 
     <LinearLayout

@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.FragmentDetailsBinding
 import com.nyan.foodie.viewmodel.details.DetailsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailsFragment: Fragment() {
 
-    private val viewModel: DetailsViewModel by viewModel()
+    private val viewModel: DetailsViewModel by viewModel {
+        parametersOf(arguments?.getParcelable<RestaurantBinding>("data"))
+    }
     private lateinit var binding: FragmentDetailsBinding
 
     override fun onCreateView(
@@ -20,6 +25,8 @@ class DetailsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater)
+
+        arguments = bundleOf("data" to "CATTO")
 
         viewModel.GGWP()
 

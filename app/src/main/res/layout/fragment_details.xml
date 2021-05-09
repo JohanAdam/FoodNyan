@@ -28,6 +28,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical"
+                android:clipToPadding="false"
                 android:paddingHorizontal="@dimen/default_horizontal_padding"
                 android:paddingVertical="@dimen/default_vertical_padding">
 

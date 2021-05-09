@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nyan.domain.entity.restaurant.RestaurantEntity
+import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.ListItemRestaurantBinding
 
-class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<RestaurantEntity, RestaurantsAdapter.RestaurantsViewHolder>(DiffCallback) {
+class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<RestaurantBinding, RestaurantsAdapter.RestaurantsViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<RestaurantEntity>() {
-        override fun areItemsTheSame(oldItem: RestaurantEntity, newItem: RestaurantEntity): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<RestaurantBinding>() {
+        override fun areItemsTheSame(oldItem: RestaurantBinding, newItem: RestaurantBinding): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: RestaurantEntity, newItem: RestaurantEntity): Boolean {
+        override fun areContentsTheSame(oldItem: RestaurantBinding, newItem: RestaurantBinding): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -32,7 +32,7 @@ class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<
 
     class RestaurantsViewHolder(private var binding: ListItemRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(restaurant: RestaurantEntity, onClickListener: OnItemClickListener) {
+        fun bind(restaurant: RestaurantBinding, onClickListener: OnItemClickListener) {
             binding.data = restaurant
             binding.executePendingBindings()
 
@@ -45,6 +45,6 @@ class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<
 
 }
 
-class OnItemClickListener(val clickListener: (restaurantItem: RestaurantEntity) -> Unit) {
-    fun onClick(restaurant: RestaurantEntity) = clickListener(restaurant)
+class OnItemClickListener(val clickListener: (restaurantItem: RestaurantBinding) -> Unit) {
+    fun onClick(restaurant: RestaurantBinding) = clickListener(restaurant)
 }
