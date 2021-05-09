@@ -6,12 +6,12 @@
     <data>
         <variable
             name="data"
-            type="com.nyan.domain.entity.restaurant.RestaurantEntity" />
+            type="com.nyan.foodie.binding.model.restaurant.Restaurant" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,41 +19,52 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layout_top"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/layout_bottom"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="vertical"
+                android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingHorizontal="@dimen/default_horizontal_padding"
-                android:paddingVertical="@dimen/default_vertical_padding">
+                android:paddingVertical="@dimen/default_vertical_padding"
+                app:layout_constraintBottom_toTopOf="@id/layout_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tv_restaurant_title"
                     style="@style/AppTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0"
                     android:text="@{data.title}"
-                    tools:text="The Title" />
+                    tools:text="The Title"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_pictures"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_restaurant_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:requiresFadingEdge="horizontal"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_item_picture"
                     tools:orientation="horizontal" />
 
                 <LinearLayout
+                    android:id="@+id/layout_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_pictures"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="8dp">
 
                     <TextView
                         style="@style/AppSubTitleStyle"
@@ -85,10 +96,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/layout_rating"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -115,52 +129,16 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:elevation="4dp" />
-
-                    <!--        <androidx.appcompat.widget.AppCompatImageButton-->
-                    <!--            android:layout_width="40dp"-->
-                    <!--            android:layout_height="40dp"-->
-                    <!--            android:adjustViewBounds="true"-->
-                    <!--            android:src="@drawable/ic_action_copy"/>-->
-
                 </LinearLayout>
-
-                <!--    <androidx.cardview.widget.CardView-->
-                <!--        android:layout_width="match_parent"-->
-                <!--        android:layout_height="wrap_content"-->
-                <!--        app:cardCornerRadius="6dp"-->
-                <!--        app:cardBackgroundColor="@color/red_citrus"-->
-                <!--        android:foreground="?android:attr/selectableItemBackground"-->
-                <!--        android:clickable="true"-->
-                <!--        android:focusable="true">-->
-                <!--        <LinearLayout-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="match_parent"-->
-                <!--            android:paddingVertical="12dp"-->
-                <!--            android:paddingHorizontal="40dp"-->
-                <!--            android:orientation="horizontal"-->
-                <!--            android:gravity="center_vertical">-->
-                <!--            <ImageView-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="22dp"-->
-                <!--                android:layout_weight="1"-->
-                <!--                android:src="@drawable/ic_location_marker"-->
-                <!--                android:adjustViewBounds="true"-->
-                <!--                app:tint="@color/white" />-->
-                <!--            <com.google.android.material.textview.MaterialTextView-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_weight="1"-->
-                <!--                android:text="@string/title_navigate_with_google_map"-->
-                <!--                android:fontFamily="@font/gothambold"-->
-                <!--                android:textColor="@color/white"/>-->
-                <!--        </LinearLayout>-->
-                <!--    </androidx.cardview.widget.CardView>-->
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_navigate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
                     app:cornerRadius="6dp"
                     app:icon="@drawable/ic_location_marker"
                     android:paddingVertical="12dp"
@@ -175,27 +153,41 @@
                     android:textAllCaps="false" />
 
                 <TextView
+                    android:id="@+id/tv_title_description"
                     style="@style/AppSubTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_navigate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/title_description" />
+                    android:text="@string/title_description"/>
 
                 <TextView
                     style="@style/AppSubsStyle"
                     android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:text="@{data.desciption}"
                     tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \nDonec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. "
                     app:lineHeight="20dp"
                     android:textAlignment="textStart" />
 
+
                 <TextView
                     style="@style/AppSubTitleStyle"
+                    android:id="@+id/tv_title_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:text="@{@string/title_comment(data.comments.size)}"
                     tools:text="@string/title_comment"
                     app:lineHeight="20dp" />
@@ -204,11 +196,16 @@
                     android:id="@+id/rvComments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_comment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="14dp"
                     android:layout_marginBottom="12dp"
-                    tools:listitem="@layout/list_item_comment"/>
+                    tools:listitem="@layout/list_item_comment"
+                    android:clipToPadding="false"/>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/layout_bottom"

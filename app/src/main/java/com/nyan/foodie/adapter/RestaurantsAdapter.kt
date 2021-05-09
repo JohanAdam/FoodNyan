@@ -25,9 +25,9 @@ class RestaurantsAdapter(private val onClickListener: (RestaurantBinding) -> Uni
     }
 
     override fun onBindViewHolder(holder: RestaurantsViewHolder, position: Int) {
-        val anime = getItem(position)
+        val restaurant = getItem(position)
         //Bind the data to xml.
-        holder.bind(anime, onClickListener)
+        holder.bind(restaurant, onClickListener)
     }
 
     class RestaurantsViewHolder(private var binding: ListItemRestaurantBinding) :

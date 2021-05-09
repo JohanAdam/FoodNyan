@@ -24,7 +24,8 @@
             app:cardBackgroundColor="@color/grey_0"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            app:cardUseCompatPadding="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
