@@ -63,6 +63,10 @@ class DetailsFragment: Fragment() {
     }
 
     private fun setupView() {
+        binding.layoutHeader.ivBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         binding.rvPictures.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvPictures.itemAnimator = DefaultItemAnimator()
 

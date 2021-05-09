@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-
         viewModel.restaurantDataState.observe(this, { dataState ->
             when(dataState) {
                 is DataState.Loading -> {

@@ -65,6 +65,10 @@ class RestaurantsFragment: Fragment() {
             viewModel.getRestaurants()
         }
 
+        binding.layoutHeader.ivBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         binding.rvRestaurantList.layoutManager = LinearLayoutManager(context)
     }
 
