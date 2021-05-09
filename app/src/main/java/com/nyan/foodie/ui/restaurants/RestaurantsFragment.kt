@@ -56,7 +56,7 @@ class RestaurantsFragment: Fragment() {
         })
 
         viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, EventObserver {
-            this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail())
+            this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail(it))
         })
     }
 

@@ -1,10 +1,10 @@
 package com.nyan.foodie.viewmodel.details
 
 import androidx.lifecycle.ViewModel
-import com.nyan.domain.entity.restaurant.RestaurantEntity
+import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import timber.log.Timber
 
-class DetailsViewModel(data: RestaurantEntity) : ViewModel() {
+class DetailsViewModel(data: RestaurantBinding) : ViewModel() {
 
     init {
         Timber.e("Value receive is ${data.title}")

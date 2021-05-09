@@ -26,7 +26,8 @@ class DetailsFragment: Fragment() {
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater)
 
-        arguments = bundleOf("data" to "CATTO")
+        val restaurant = DetailsFragmentArgs.fromBundle(requireArguments()).selectedRestaurant
+        arguments = bundleOf("data" to restaurant)
 
         viewModel.GGWP()
 
