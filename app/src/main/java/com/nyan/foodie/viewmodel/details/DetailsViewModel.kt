@@ -51,6 +51,12 @@ class DetailsViewModel(
 
     fun navigate() {
         //TODO
+        _errorMsg.value = Event("Opps, sorry. :(")
+    }
+
+    fun copy() {
+        //TODO
+        _errorMsg.value = Event("Opps, sorry. :(")
     }
 
     private fun setStateEvent(detailStateEvent: DetailStateEvent) {

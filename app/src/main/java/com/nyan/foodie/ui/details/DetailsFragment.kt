@@ -84,6 +84,10 @@ class DetailsFragment: Fragment() {
             viewModel.navigate()
         }
 
+        binding.btnCopy.setOnClickListener {
+            viewModel.copy()
+        }
+
         binding.rvPictures.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvPictures.itemAnimator = DefaultItemAnimator()
 
