@@ -43,11 +43,11 @@ class RestaurantsFragment: Fragment() {
             displayData(it)
         })
 
-        viewModel.errorMsg.observe(viewLifecycleOwner, {
+        viewModel.errorMsg.observe(viewLifecycleOwner, EventObserver {
             showSnackBar(it)
         })
 
-        viewModel.isLoading.observe(viewLifecycleOwner, {
+        viewModel.isLoading.observe(viewLifecycleOwner, EventObserver {
             displayProgressBar(it)
         })
 

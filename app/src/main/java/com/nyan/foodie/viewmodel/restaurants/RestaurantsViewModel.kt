@@ -27,14 +27,14 @@ class RestaurantsViewModel(
     private val _navigateToRestaurantDetails: MutableLiveData<Event<RestaurantBinding>> = MutableLiveData()
     val navigateToRestaurantDetails: LiveData<Event<RestaurantBinding>> get() = _navigateToRestaurantDetails
 
+    private val _isLoading: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val isLoading: LiveData<Event<Boolean>> get() = _isLoading
+
+    private val _errorMsg: MutableLiveData<Event<String>> = MutableLiveData()
+    val errorMsg: LiveData<Event<String>> get() = _errorMsg
+
     private val _listRestaurant: MutableLiveData<List<RestaurantBinding>> = MutableLiveData()
     val listRestaurant: LiveData<List<RestaurantBinding>> get() = _listRestaurant
-
-    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
-    private val _errorMsg: MutableLiveData<String> = MutableLiveData()
-    val errorMsg: LiveData<String> get() = _errorMsg
 
     init {
         getRestaurants()
@@ -59,12 +59,12 @@ class RestaurantsViewModel(
                                     _listRestaurant.value = RestaurantConverter.fromEntityToBinding(dataState.data)
                                 }
                                 is DataState.Failed -> {
-                                    _errorMsg.value = dataState.error.errorMsg
+                                    _errorMsg.value = Event(dataState.error.errorMsg)
                                 }
                                 is DataState.Loading -> {
-                                    _isLoading.value = true
+                                    _isLoading.value = Event(true)
                                 }
-                                else -> _isLoading.value = false
+                                else -> _isLoading.value = Event(false)
                             }
 
                         }
