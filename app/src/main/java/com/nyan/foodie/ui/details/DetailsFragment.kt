@@ -76,6 +76,14 @@ class DetailsFragment: Fragment() {
             activity?.onBackPressed()
         }
 
+        binding.btnSendComment.setOnClickListener {
+            viewModel.sendMessage(binding.etComment.text.toString())
+        }
+
+        binding.btnNavigate.setOnClickListener {
+            viewModel.navigate()
+        }
+
         binding.rvPictures.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvPictures.itemAnimator = DefaultItemAnimator()
 
@@ -93,13 +101,11 @@ class DetailsFragment: Fragment() {
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, EventObserver {
-            Timber.e("setupObserver: isLoading $it")
             showProgressBar(it)
         })
     }
 
     private fun showProgressBar(isLoading: Boolean) {
-        Timber.e("showProgressBar: $isLoading")
         val mainActivity = activity as MainActivity
         if (isLoading) {
             mainActivity.displayProgressBar(true)
@@ -113,16 +119,15 @@ class DetailsFragment: Fragment() {
     }
 
     private fun displayData(restaurant: RestaurantBinding?) {
-        Timber.e("displayData: ${restaurant!!.pictures.size}")
         binding.data = restaurant
 
         //Bind picture list to rv.
         binding.rvPictures.adapter = picturesAdapter
-        picturesAdapter.submitList(restaurant.pictures)
+        picturesAdapter.submitList(restaurant?.pictures)
 
         //Bind comment list to rv.
         binding.rvComments.adapter = commentsAdapter
-        commentsAdapter.submitList(restaurant.comments.take(3))
+        commentsAdapter.submitList(restaurant?.comments?.take(3))
     }
 
     override fun onDestroyView() {
