@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.ListItemRestaurantBinding
 
-class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<RestaurantBinding, RestaurantsAdapter.RestaurantsViewHolder>(DiffCallback) {
+class RestaurantsAdapter(private val onClickListener: (RestaurantBinding) -> Unit): ListAdapter<RestaurantBinding, RestaurantsAdapter.RestaurantsViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<RestaurantBinding>() {
         override fun areItemsTheSame(oldItem: RestaurantBinding, newItem: RestaurantBinding): Boolean {
@@ -32,19 +32,15 @@ class RestaurantsAdapter(val onClickListener: OnItemClickListener): ListAdapter<
 
     class RestaurantsViewHolder(private var binding: ListItemRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(restaurant: RestaurantBinding, onClickListener: OnItemClickListener) {
+        fun bind(restaurant: RestaurantBinding, onClickListener: (RestaurantBinding) -> Unit) {
             binding.data = restaurant
             binding.executePendingBindings()
 
             //Set on click listener and data to sent.
             binding.cardRoot.setOnClickListener {
-                onClickListener.onClick(restaurant)
+                onClickListener(restaurant)
             }
         }
     }
 
-}
-
-class OnItemClickListener(val clickListener: (restaurantItem: RestaurantBinding) -> Unit) {
-    fun onClick(restaurant: RestaurantBinding) = clickListener(restaurant)
 }

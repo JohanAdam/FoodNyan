@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nyan.foodie.adapter.OnItemClickListener
 import com.nyan.foodie.adapter.RestaurantsAdapter
 import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.FragmentRestaurantsBinding
@@ -26,7 +26,11 @@ class RestaurantsFragment: Fragment() {
 
     private val viewModel: RestaurantsViewModel by viewModel()
 
-    private lateinit var adapter: RestaurantsAdapter
+    private val adapter by lazy {
+        RestaurantsAdapter { restaurant ->
+            viewModel.openRestaurantDetail(restaurant)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentRestaurantsBinding.inflate(inflater)
@@ -62,9 +66,6 @@ class RestaurantsFragment: Fragment() {
         }
 
         binding.rvRestaurantList.layoutManager = LinearLayoutManager(context)
-        adapter = RestaurantsAdapter(OnItemClickListener {
-            viewModel.openRestaurantDetail(it)
-        })
     }
 
     private fun displayProgressBar(isLoading: Boolean) {
