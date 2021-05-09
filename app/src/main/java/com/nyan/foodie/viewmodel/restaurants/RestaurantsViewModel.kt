@@ -14,7 +14,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 sealed class RestaurantsStateEvent {
     object GetRestaurantEvent: RestaurantsStateEvent()
@@ -36,21 +35,31 @@ class RestaurantsViewModel(
     private val _listRestaurant: MutableLiveData<List<RestaurantBinding>> = MutableLiveData()
     val listRestaurant: LiveData<List<RestaurantBinding>> get() = _listRestaurant
 
+    private val _listTag: MutableLiveData<List<String>> = MutableLiveData()
+    val listTag: LiveData<List<String>> get() = _listTag
+
     init {
+        getTags()
         getRestaurants()
     }
 
+    // For now load hardcode tags.
+    private fun getTags() {
+        //Load tags.
+        val listTags = arrayListOf("Asian", "Western", "Japanese", "Cat Food", "Fast Food", "Fish Food")
+
+        //Send tags to Ui.
+        _listTag.value = listTags
+    }
+
     fun getRestaurants() {
-        Timber.d("getRestaurants: ")
         setStateEvent(RestaurantsStateEvent.GetRestaurantEvent)
     }
 
     private fun setStateEvent(event: RestaurantsStateEvent) {
-        Timber.d("setStateEvent: ")
         viewModelScope.launch {
             when(event) {
                 is RestaurantsStateEvent.GetRestaurantEvent -> {
-                    Timber.d("setStateEvent: GetRestaurantEvent")
                     listRestaurantsUseCase.execute()
                         .onEach { dataState ->
                             _isLoading.value = Event(false)
@@ -75,7 +84,15 @@ class RestaurantsViewModel(
     }
 
     fun openRestaurantDetail(item: RestaurantBinding) {
-        _navigateToRestaurantDetails.postValue(Event(item))
+        _navigateToRestaurantDetails.value = (Event(item))
+    }
+
+    fun selectFilter() {
+        _errorMsg.value = Event("Opps, sorry. :(")
+    }
+
+    fun selectTag(tag: String) {
+        _errorMsg.value = Event("Selected ".plus(tag))
     }
 
     override fun onCleared() {

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingStart="0dp"
     android:paddingEnd="4dp">
 
@@ -22,7 +23,7 @@
             android:paddingVertical="12dp"
             android:paddingHorizontal="28dp"
             android:gravity="center"
-            android:text="GGWP"
+            tools:text="Nyan"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/red_citrus"/>

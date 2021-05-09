@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nyan.foodie.adapter.RestaurantsAdapter
+import com.nyan.foodie.adapter.TagsAdapter
 import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.FragmentRestaurantsBinding
 import com.nyan.foodie.event.EventObserver
@@ -16,7 +16,6 @@ import com.nyan.foodie.ui.main.MainActivity
 import com.nyan.foodie.viewmodel.restaurants.RestaurantsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 class RestaurantsFragment: Fragment() {
@@ -26,9 +25,15 @@ class RestaurantsFragment: Fragment() {
 
     private val viewModel: RestaurantsViewModel by viewModel()
 
-    private val adapter by lazy {
+    private val restaurantAdapter by lazy {
         RestaurantsAdapter { restaurant ->
             viewModel.openRestaurantDetail(restaurant)
+        }
+    }
+
+    private val tagAdapter by lazy {
+        TagsAdapter { tag ->
+            viewModel.selectTag(tag)
         }
     }
 
@@ -55,6 +60,10 @@ class RestaurantsFragment: Fragment() {
             displayProgressBar(it)
         })
 
+        viewModel.listTag.observe(viewLifecycleOwner, {
+            displayTags(it)
+        })
+
         viewModel.navigateToRestaurantDetails.observe(viewLifecycleOwner, EventObserver {
             this.findNavController().navigate(RestaurantsFragmentDirections.actionShowDetail(it))
         })
@@ -69,6 +78,12 @@ class RestaurantsFragment: Fragment() {
             activity?.onBackPressed()
         }
 
+        binding.layoutFilter.setOnClickListener {
+            viewModel.selectFilter()
+        }
+
+        binding.rvFilter.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
         binding.rvRestaurantList.layoutManager = LinearLayoutManager(context)
     }
 
@@ -77,7 +92,7 @@ class RestaurantsFragment: Fragment() {
         binding.progressBar.visibility = if(isLoading) View.VISIBLE else View.GONE
 
         if (isLoading) {
-            adapter.submitList(null)
+            restaurantAdapter.submitList(null)
         }
     }
 
@@ -85,10 +100,14 @@ class RestaurantsFragment: Fragment() {
         (activity as MainActivity).showSnackbar(errorMsg)
     }
 
+    private fun displayTags(list: List<String>) {
+        binding.rvFilter.adapter = tagAdapter
+        tagAdapter.submitList(list)
+    }
+
     private fun displayData(data: List<RestaurantBinding>) {
-        Timber.e("displayData: ${data.size}")
-        binding.rvRestaurantList.adapter = adapter
-        adapter.submitList(data)
+        binding.rvRestaurantList.adapter = restaurantAdapter
+        restaurantAdapter.submitList(data)
     }
 
     override fun onDestroyView() {
