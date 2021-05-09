@@ -1,15 +1,21 @@
 package com.nyan.foodie.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
+import com.nyan.foodie.R
 import com.nyan.foodie.databinding.ListItemCommentBinding
+import com.nyan.foodie.databinding.ListItemCommentLoadMoreBinding
 import com.nyan.foodie.binding.model.restaurant.Comment as CommentBinding
-import com.nyan.foodie.databinding.ListItemPictureBinding
 
-class CommentsAdapter(private val onClickListener: (CommentBinding) -> Unit): ListAdapter<CommentBinding, CommentsAdapter.CommentsViewHolder>(DiffCallback) {
+
+class CommentsAdapter(private val onClickListener: (CommentBinding) -> Unit): ListAdapter<CommentBinding, CommentsAdapter.CommentsViewHolder>(
+    DiffCallback
+) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<CommentBinding>() {
         override fun areItemsTheSame(oldItem: CommentBinding, newItem: CommentBinding): Boolean {
@@ -22,30 +28,51 @@ class CommentsAdapter(private val onClickListener: (CommentBinding) -> Unit): Li
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
-        return CommentsViewHolder(
-            ListItemCommentBinding.inflate(
-                LayoutInflater.from(parent.context)
-            )
-        )
+        var itemV: ViewBinding
+
+        if (viewType == R.layout.list_item_comment) {
+            itemV = ListItemCommentBinding.inflate(LayoutInflater.from(parent.context))
+        } else {
+            itemV = ListItemCommentLoadMoreBinding.inflate(LayoutInflater.from(parent.context))
+        }
+
+        return CommentsViewHolder(itemV)
     }
 
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
-        val comment = getItem(position)
         //Bind the data to xml.
-        holder.bind(comment, onClickListener)
+        if (position == currentList.size) {
+            holder.bindFooter(onClickListener)
+        } else {
+            val comment = getItem(position)
+            holder.bind(comment, onClickListener)
+        }
     }
 
-    class CommentsViewHolder(private var binding: ListItemCommentBinding) :
+    override fun getItemViewType(position: Int): Int {
+        return if (position == currentList.size) R.layout.list_item_comment_load_more else R.layout.list_item_comment
+    }
+
+    class CommentsViewHolder(private var binding: ViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: CommentBinding, onClickListener: (CommentBinding) -> Unit) {
-            binding.comment = comment
-            binding.executePendingBindings()
-
+            val _binding = (binding as ListItemCommentBinding)
+            _binding.comment = comment
+            _binding.executePendingBindings()
             //Set on click listener and data to sent.
 //            binding.cardRoot.setOnClickListener {
 //                onClickListener(comment)
 //            }
         }
+
+        fun bindFooter(onClickListener: (CommentBinding) -> Unit) {
+
+        }
     }
+
+    override fun getItemCount(): Int {
+        return currentList.size + 1
+    }
+
 
 }

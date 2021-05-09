@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
-    android:paddingHorizontal="6dp"
-    android:paddingVertical="12dp"
     android:orientation="horizontal"
     android:gravity="center">
 
-    <com.google.android.material.textview.MaterialTextView
-        style="@style/AppTextStyle"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/textButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_load_more_comments"
-        android:drawablePadding="2dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/gothambook"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:drawableEnd="@drawable/ic_chevrons_down"
-        android:textSize="14sp"
-        android:textColor="@color/red_citrus"/>
-
-</LinearLayout>
+        app:icon="@drawable/ic_chevrons_down"
+        app:iconGravity="textEnd"/>
+    
+</RelativeLayout>

@@ -16,16 +16,15 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_root"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="110dp"
             android:layout_marginBottom="6dp"
             app:cardCornerRadius="4dp"
-            tools:layout_marginVertical="3dp"
+            tools:layout_marginVertical="0dp"
             tools:layout_marginHorizontal="0dp"
             app:cardBackgroundColor="@color/grey_0"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
-            android:focusable="true"
-            app:cardUseCompatPadding="true">
+            android:focusable="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
