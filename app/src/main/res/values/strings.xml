@@ -2,4 +2,10 @@
     <string name="app_name">FoodNyan</string>
     <string name="title_restaurants">Restaurants</string>
     <string name="title_filter">Filter</string>
+    <string name="title_rating">Rating:</string>
+    <string name="title_navigate_with_google_map">Navigate with Google Map</string>
+    <string name="title_description">Description</string>
+    <string name="title_comment">Comment (%1$s)</string>
+    <string name="title_load_more_comments">Load more comments</string>
+    <string name="title_write_a_comment">Write a comment...</string>
 </resources>

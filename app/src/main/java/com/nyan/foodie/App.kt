@@ -3,6 +3,7 @@ package com.nyan.foodie
 import android.app.Application
 import android.app.Presentation
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.nyan.data.di.DataModules
 import com.nyan.data.di.DataModules.dataModule
 import com.nyan.data.di.NetworkModules
@@ -22,6 +23,8 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //Initialized timber.
         if (BuildConfig.DEBUG) {

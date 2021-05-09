@@ -5,8 +5,6 @@ import timber.log.Timber
 
 class DetailsViewModel: ViewModel() {
 
-
-
     fun GGWP() {
         Timber.e("GGWP: WOHOO!")
     }
