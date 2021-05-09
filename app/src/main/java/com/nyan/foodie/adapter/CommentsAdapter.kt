@@ -13,7 +13,7 @@ import com.nyan.foodie.databinding.ListItemCommentLoadMoreBinding
 import com.nyan.foodie.binding.model.restaurant.Comment as CommentBinding
 
 
-class CommentsAdapter(private val onClickListener: (CommentBinding) -> Unit): ListAdapter<CommentBinding, CommentsAdapter.CommentsViewHolder>(
+class CommentsAdapter(private val onClickListener: (CommentBinding?, Boolean) -> Unit): ListAdapter<CommentBinding, CommentsAdapter.CommentsViewHolder>(
     DiffCallback
 ) {
 
@@ -55,18 +55,21 @@ class CommentsAdapter(private val onClickListener: (CommentBinding) -> Unit): Li
 
     class CommentsViewHolder(private var binding: ViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(comment: CommentBinding, onClickListener: (CommentBinding) -> Unit) {
+        fun bind(comment: CommentBinding, onClickListener: (CommentBinding?, Boolean) -> Unit) {
             val _binding = (binding as ListItemCommentBinding)
             _binding.comment = comment
             _binding.executePendingBindings()
             //Set on click listener and data to sent.
-//            binding.cardRoot.setOnClickListener {
-//                onClickListener(comment)
-//            }
+            _binding.cardRoot.setOnClickListener {
+                onClickListener(comment, false)
+            }
         }
 
-        fun bindFooter(onClickListener: (CommentBinding) -> Unit) {
-
+        fun bindFooter(onClickListener: (CommentBinding?, Boolean) -> Unit) {
+            val _binding = (binding as ListItemCommentLoadMoreBinding)
+            _binding.btnLoadMore.setOnClickListener {
+                onClickListener(null, true)
+            }
         }
     }
 

@@ -12,11 +12,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-sealed class MainStateEvent {
-    object GetRestaurantsEvent: MainStateEvent()
-    object GetTestTrueEvent: MainStateEvent()
-}
-
 class MainViewModel(
     private val listRestaurantUseCase: ListRestaurantsUseCase,
     private val getTestTrueUseCase: PostTestBRUseCase
@@ -68,4 +63,9 @@ class MainViewModel(
         super.onCleared()
         viewModelScope.cancel()
     }
+}
+
+sealed class MainStateEvent {
+    object GetRestaurantsEvent: MainStateEvent()
+    object GetTestTrueEvent: MainStateEvent()
 }

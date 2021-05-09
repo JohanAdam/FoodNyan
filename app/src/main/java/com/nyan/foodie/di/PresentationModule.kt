@@ -18,7 +18,7 @@ object PresentationModule {
             RestaurantsViewModel(get())
         }
         viewModel {
-            (data: RestaurantBinding) -> DetailsViewModel(data)
+            (data: RestaurantBinding) -> DetailsViewModel(data, get())
         }
     }
 

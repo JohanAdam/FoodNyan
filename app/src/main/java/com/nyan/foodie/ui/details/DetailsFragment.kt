@@ -34,8 +34,14 @@ class DetailsFragment: Fragment() {
     }
 
     private val commentsAdapter by lazy {
-        CommentsAdapter { url ->
-            //TODO
+        CommentsAdapter { url , isLoading ->
+            if (isLoading) {
+                viewModel.loadMoreComment()
+            } else {
+                url?.let{
+                    showSnackbar("Click Click! ;)")
+                }
+            }
         }
     }
 
