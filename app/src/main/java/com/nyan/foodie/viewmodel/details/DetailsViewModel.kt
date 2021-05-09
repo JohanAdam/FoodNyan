@@ -40,12 +40,17 @@ class DetailsViewModel(
         setStateEvent(DetailStateEvent.PostTestEvent)
     }
 
+    //No text will call the Test Api False & With text will send the Test Api True.
     fun sendMessage(msg: String) {
-        setStateEvent(DetailStateEvent.GetTestTrueEvent)
+        if (msg.trim().isEmpty()) {
+            setStateEvent(DetailStateEvent.GetFalseTrueEvent)
+        } else {
+            setStateEvent(DetailStateEvent.GetTestTrueEvent)
+        }
     }
 
     fun navigate() {
-        setStateEvent(DetailStateEvent.GetFalseTrueEvent)
+        //TODO
     }
 
     private fun setStateEvent(detailStateEvent: DetailStateEvent) {
