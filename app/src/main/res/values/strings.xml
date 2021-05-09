@@ -8,4 +8,5 @@
     <string name="title_comment">Comment (%1$s)</string>
     <string name="title_load_more_comments">Load more comments</string>
     <string name="title_write_a_comment">Write a comment...</string>
+    <string name="title_loading">Loading...</string>
 </resources>

@@ -22,6 +22,9 @@ class RemoteRepositoryImpl(
     private val testStatusMapper: TestStatusMapper) : RemoteRepository {
 
     override fun loadTestTrue(): Flow<DataState<TestStatusEntity>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
         try {
             processTestStatus(networkService.getTestTrue())
         } catch (e: HttpException) {
@@ -31,6 +34,9 @@ class RemoteRepositoryImpl(
     }
 
     override fun loadTestFalse(): Flow<DataState<TestStatusEntity>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
         try {
             processTestStatus(networkService.getTestFalse())
         } catch (e: HttpException) {
@@ -40,6 +46,9 @@ class RemoteRepositoryImpl(
     }
 
     override fun loadTestBR(): Flow<DataState<TestStatusEntity>> = flow {
+        //Return Loading.
+        emit(DataState.Loading)
+
         try {
             processTestStatus(networkService.getTestBR())
         } catch (e: Exception) {
@@ -49,9 +58,6 @@ class RemoteRepositoryImpl(
     }
 
     private suspend fun FlowCollector<DataState<TestStatusEntity>>.processTestStatus(testApi: TestStatusDataModel) {
-        //Return Loading.
-        emit(DataState.Loading)
-
         //Get data from API.
         val testStatusNet = testApi
 

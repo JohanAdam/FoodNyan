@@ -53,7 +53,7 @@ class RestaurantsViewModel(
                     Timber.d("setStateEvent: GetRestaurantEvent")
                     listRestaurantsUseCase.execute()
                         .onEach { dataState ->
-
+                            _isLoading.value = Event(false)
                             when (dataState) {
                                 is DataState.Success -> {
                                     _listRestaurant.value = RestaurantConverter.fromEntityToBinding(dataState.data)

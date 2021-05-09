@@ -42,7 +42,9 @@ class DetailsViewModel(private val data: RestaurantBinding, private val postUseC
             is DetailStateEvent.PostTestEvent -> {
                 postUseCase.execute()
                     .onEach { dataState ->
-                        when(dataState) {
+                        Timber.e("setStateEvent: dataState")
+                        _isLoading.value = Event(false)
+                        when (dataState) {
                             is DataState.Success -> {
                                 _errorMsg.value = Event(dataState.data.status.toString())
                             }

@@ -1,5 +1,6 @@
 package com.nyan.foodie.ui.details
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nyan.foodie.R
 import com.nyan.foodie.adapter.CommentsAdapter
 import com.nyan.foodie.adapter.PicturesAdapter
 import com.nyan.foodie.binding.model.restaurant.Restaurant as RestaurantBinding
 import com.nyan.foodie.databinding.FragmentDetailsBinding
+import com.nyan.foodie.dialog.DialogLoading
 import com.nyan.foodie.event.EventObserver
 import com.nyan.foodie.ui.main.MainActivity
 import com.nyan.foodie.viewmodel.details.DetailsViewModel
@@ -90,12 +93,19 @@ class DetailsFragment: Fragment() {
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, EventObserver {
+            Timber.e("setupObserver: isLoading $it")
             showProgressBar(it)
         })
     }
 
     private fun showProgressBar(isLoading: Boolean) {
-        TODO("Not yet implemented")
+        Timber.e("showProgressBar: $isLoading")
+        val mainActivity = activity as MainActivity
+        if (isLoading) {
+            mainActivity.displayProgressBar(true)
+        } else {
+            mainActivity.displayProgressBar(false)
+        }
     }
 
     private fun showSnackbar(msg: String) {

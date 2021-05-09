@@ -2,9 +2,12 @@ package com.nyan.foodie.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.snackbar.Snackbar
 import com.nyan.domain.state.DataState
+import com.nyan.foodie.R
 import com.nyan.foodie.databinding.ActivityMainBinding
+import com.nyan.foodie.dialog.DialogLoading
 import com.nyan.foodie.viewmodel.main.MainViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -13,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: ActivityMainBinding
+
+    private var dialogLoading: DialogLoading? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +58,19 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun displayProgressBar(b: Boolean) {
-
+    fun displayProgressBar(isLoading: Boolean) {
+        if (isLoading) {
+            dialogLoading = DialogLoading()
+            dialogLoading?.showDialog(this,
+                resources.getString(R.string.title_loading)
+            ) {
+                dialogLoading = null
+            }
+        } else {
+            dialogLoading?.let {
+                dialogLoading?.removeDialog()
+            }
+        }
     }
 
     fun showSnackbar(msg: String) {
